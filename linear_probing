@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define HASH_SIZE 250
+
+struct node{
+    int data;
+    struct node *next;
+};
+struct node *head[TABLE_SIZE]={NULL},*c;
+void insert(){
+    int i,key;
+    printf("\nMasukkan Angka dari 1 sampai 250 ke tabel Hash:\n"); scanf("%d",&key);
+    i=key%TABLE_SIZE;
+    struct node * newnode=(struct node *)malloc(sizeof(struct node));
+    newnode->data=key;
+    newnode->next = NULL;
+    if(head[i] == NULL)
+        head[i] = newnode;
+    else
+    {
+        c=head[i];
+        while(c->next != NULL)
+        {
+           c=c->next;
+        }
+        c->next=newnode;
+    }
+}
+
+void display(){
+  int i;
+  for(i=0;i<TABLE_SIZE;i++){
+      printf("\nIndex ke %d\n",i);
+      if(head[i] == NULL){
+          printf("Tidak ada bilangan masuk");
+          }
+          else{
+               for(c=head[i];c!=NULL;c=c->next)
+               printf("%d->",c->data);
+               }
+          }
+}
+main(){
+  int opt,key,i;
+  while(1){
+     printf("\nPilih Menu : 1.Insert\t 2.Tampilkan \t3.Keluar \n");
+     scanf("%d",&opt);
+     switch(opt){
+        case 1:
+        insert();
+        break;
+        case 2:
+        display();
+        break; 
+        case 3:exit(0);                                   
+        }
+    }
+    return 0;
+}
